@@ -1,0 +1,10 @@
+// successful logons from ti ips
+let BadIPs = toscalar(
+    ThreatIntelIndicators
+    | where TimeGenerated > ago(365d)
+    | where Data.name == "Malicious activity"
+    | summarize make_set(ObservableValue));
+DeviceLogonEvents
+| where RemoteIP in (BadIPs)
+| where ActionType == "LogonSuccess"
+| project TimeGenerated, DeviceName, AccountName, LogonType, RemoteIP

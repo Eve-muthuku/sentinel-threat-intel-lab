@@ -1,0 +1,5 @@
+// find bad ips
+DeviceLogonEvents
+| where ActionType == "LogonFailed"
+| summarize Count = count() by RemoteIP, ActionType
+| order by Count desc

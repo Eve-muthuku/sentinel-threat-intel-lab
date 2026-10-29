@@ -1,0 +1,11 @@
+// match network traffic
+let BadIPs = toscalar(
+    ThreatIntelIndicators
+    | where TimeGenerated > ago(365d)
+    | where Data.name == "Malicious activity"
+    | summarize make_set(ObservableValue));
+NTANetAnalytics
+| where isnotempty(SrcPublicIps)
+| extend RemoteIP = tostring(split(SrcPublicIps, "|")[0])
+| where RemoteIP in (BadIPs)
+| project TimeGenerated, RemoteIP, DestPort, FlowDirection, FlowType

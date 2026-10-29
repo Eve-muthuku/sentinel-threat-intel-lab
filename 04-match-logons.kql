@@ -1,0 +1,8 @@
+// match logons
+let BadIPs = toscalar(
+    ThreatIntelIndicators
+    | where TimeGenerated > ago(365d)
+    | where Data.name == "Malicious activity"
+    | summarize make_set(ObservableValue));
+DeviceLogonEvents
+| where RemoteIP in (BadIPs)

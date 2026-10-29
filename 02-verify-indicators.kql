@@ -1,0 +1,4 @@
+// verify indicators
+ThreatIntelIndicators
+| where Data.name == "Malicious activity"
+| project ObservableValue, IsActive, ValidUntil
