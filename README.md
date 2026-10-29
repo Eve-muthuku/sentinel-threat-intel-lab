@@ -196,8 +196,4 @@ DeviceLogonEvents
 - `IsActive` shows whether the indicator is still valid: not expired (`ValidUntil` is in the future) and not revoked. It describes the indicator, not whether the IP is attacking right now.
 - `make_set()` collapses the matching rows into one list of unique IPs, `toscalar()` turns that single result into a variable (`BadIPs`), and `in (BadIPs)` checks whether each row's IP is on the list.
 
-## Next steps
 
-- Enrich results with `geo_info_from_ip_address()`
-- Investigate the 4 successful logons (what happened after each one)
-- Map the rules to MITRE ATT&CK: Brute Force (T1110), including Password Spraying (T1110.003)
